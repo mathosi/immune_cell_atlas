@@ -474,7 +474,7 @@ for(i in seq_along(variables)){
 jj_plot_upsetr(sig_list)
 
 ##add gene annotation
-library(signify)
+library(genomic_region_tools)
 sig_list = list()
 for(i in seq_along(variables)){
   peaks_keep = res_df[res_df[, paste0(variables[i], '_FDR') ] < 0.05 & res_df[, paste0(variables[i], '_logFC') ] > 0, ]
@@ -617,7 +617,7 @@ sapply(sig_list, length) %>% sort(., decreasing = T) %>% data.frame(var = names(
 
 
 ##add gene annotation
-library(signify)
+library(genomic_region_tools)
 sig_list = list()
 for(i in seq_along(fdr_df)){
   peaks_keep = fdr_df[, i] < 0.05 & logFC_df[, i] > 0
@@ -662,7 +662,7 @@ for(i in seq_along(names(marker_list))){
   print(jj_compare_vectors(marker_list[[i]], sig_unique_list[[i]]))
 } #agreement is bad ~1%
 
-library(signify)
+library(genomic_region_tools)
 sig_gr_list = lapply(sig_list, convert_granges)
 proj = archr_add_peak_signatures(proj, signature_list = sig_gr_list, signature_name = 'nebula')
 dr_df = jj_get_reduction_coords(proj, 'UMAP')

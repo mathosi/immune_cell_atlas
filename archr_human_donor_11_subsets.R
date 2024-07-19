@@ -77,7 +77,7 @@ jj_plot_features(reduction = dr_df, meta_features = 'singler_label_fine', pt.siz
 
 ##singler peaks pred
 pmat = get_peak_mat(proj)
-library(signify)
+library(genomic_region_tools)
 ass_df = GetAssayData(pbmc_multi, assay = 'ATAC')
 unified_list = unify_peak_matrices(pmat_list=list(donor11=pmat, pbmc=ass_df))
 summ_mat = jj_summarize_sparse_mat(unified_list$pbmc, pbmc_multi$annot)

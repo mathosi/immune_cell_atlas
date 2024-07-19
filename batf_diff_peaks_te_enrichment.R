@@ -1,7 +1,7 @@
 library(openxlsx)
 library(Signac)
 library(GenomicRanges)
-library(signify)
+library(genomic_region_tools)
 library(jj)
 library(tidyverse)
 
@@ -155,7 +155,7 @@ jj_save_excel(te_olap_list, paste0(storeFigPath, 'te_scATAC_tisTreg_signature_ov
 library(openxlsx)
 library(Signac)
 library(GenomicRanges)
-library(signify)
+library(genomic_region_tools)
 library(jj)
 library(tidyverse)
 library(Seurat)
@@ -200,7 +200,7 @@ write_csv(cons_df, paste0(storeFigPath, 'mouse_conserved_tisTreg_sig_te_annotati
 library(openxlsx)
 library(Signac)
 library(GenomicRanges)
-library(signify)
+library(genomic_region_tools)
 library(jj)
 library(tidyverse)
 
@@ -339,7 +339,7 @@ writeLines(myseq$dna, paste0(storeFigPath, 'batf_sequence.txt'))
 
 
 # homer on TE part of mouse tisTreg signature -----------------------------
-library(signify)
+library(genomic_region_tools)
 
 mouse_cd4_scATAC_sig_df = read_csv('/omics/groups/OE0436/data2/simonma/projects/scATAC/analysis/2020-03-16-1/diff_results_16_23_versus_0_3_14_seurat_mouse_normal_CD4_CD25_scATAC_binary_5000_frags_dimred_chromvar_clustered.csv')
 mouse_cd4_tisTreg_df = mouse_cd4_scATAC_sig_df[mouse_cd4_scATAC_sig_df$comparison == '16_23_versus_0_3_14', ]
@@ -577,7 +577,7 @@ for(i in homer_subsets){
 } 
 
 # homer on TE part of mouse tisTreg signature per family analysis -----------------------------
-library(signify)
+library(genomic_region_tools)
 
 mouse_cd4_scATAC_sig_df = read_csv('/omics/groups/OE0436/data2/simonma/projects/scATAC/analysis/2020-03-16-1/diff_results_16_23_versus_0_3_14_seurat_mouse_normal_CD4_CD25_scATAC_binary_5000_frags_dimred_chromvar_clustered.csv')
 mouse_cd4_tisTreg_df = mouse_cd4_scATAC_sig_df[mouse_cd4_scATAC_sig_df$comparison == '16_23_versus_0_3_14', ]

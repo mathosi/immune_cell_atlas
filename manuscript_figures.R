@@ -192,7 +192,7 @@ markers_use =  c('Foxp3','Cd4','Sell','Lef1','Klrg1','Nfil3','Ccr8','Il1rl1','Ba
 # dev.off()
 
 ##scATAC tisTreg signature overlap (just calculate once)
-# library(signify)
+# library(genomic_region_tools)
 # source('/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/useful_functions_sc.R')
 # 
 # mouse_cd4_scATAC_sig_df = read_csv('/omics/groups/OE0436/data2/simonma/projects/scATAC/analysis/2020-03-16-1/diff_results_16_23_versus_0_3_14_seurat_mouse_normal_CD4_CD25_scATAC_binary_5000_frags_dimred_chromvar_clustered.csv')
@@ -952,7 +952,9 @@ dev.off()
 
 
 # scATAC tisTreg signature percentage overlap -----------------------------
-library(signify)
+
+#devtools::install_github('mathosi/genomic_region_tools')
+library(genomic_region_tools)
 source('/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/useful_functions_sc.R')
 
 mouse_cd4_scATAC_sig_df = read_csv('/omics/groups/OE0436/data2/simonma/projects/scATAC/analysis/2020-03-16-1/diff_results_16_23_versus_0_3_14_seurat_mouse_normal_CD4_CD25_scATAC_binary_5000_frags_dimred_chromvar_clustered.csv')
@@ -2229,7 +2231,7 @@ region_strings = c(Areg = 'chr5-91121604-91150517',
                    Il17a = 'chr1-20724552-20735413',
                    Ctla4 = 'chr1-60897703-60915868',
                    Maf = 'chr8-115596703-115848045')
-new_ranges = signify::convert_granges(region_strings)
+new_ranges = genomic_region_tools::convert_granges(region_strings)
 new_ranges$symbol = names(region_strings)
 
 
@@ -2458,7 +2460,7 @@ groups_select = c('pTreg', 'tisTregST2__Colon', 'tisTregST2__Skin','tisTregST2__
 stopifnot(all(groups_select %in% proj$tissue_cell_type))
 
 #proj$tissue_cell_type = factor( proj$tissue_cell_type, levels = )
-library(signify)
+library(genomic_region_tools)
 gannot_use = convert_granges(region_strings)
 p = plotBrowserTrack(proj,
                      region = gannot_use,
@@ -4145,7 +4147,7 @@ dev.off()
 
 # human tisTreg signature -------------------------------------------------
 
-library(signify)
+library(genomic_region_tools)
 source('/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/useful_functions_sc.R')
 
 # human_tisTreg_sig_df = jj_load_excel('/omics/groups/OE0436/data2/simonma/projects/scATAC/analysis/2020-04-30-tconv_signature_substraction/tisTreg_vs_Tconv_filtering.csv')
@@ -5154,9 +5156,9 @@ pgr = getPeakSet(proj)
 peak_df = as.data.frame(unname(pgr))
 peak_df$comparison = sprintf('Union peaks')
 #peaks that overlap with a TE
-pgr$polap = signify::granges_overlap(pgr, te_bed, minOverlap = 0, return_type = 'logical')
+pgr$polap = genomic_region_tools::granges_overlap(pgr, te_bed, minOverlap = 0, return_type = 'logical')
 #TEs that overlap with a peak
-te_bed$polap = signify::granges_overlap(te_bed, pgr, minOverlap = 0, return_type = 'logical')
+te_bed$polap = genomic_region_tools::granges_overlap(te_bed, pgr, minOverlap = 0, return_type = 'logical')
 
 #peaks that overlap with a specific TE
 te_names = unique(te_bed$name)
@@ -5164,7 +5166,7 @@ olap_vec = vector()
 for(i in seq_along(te_names)){
   if(i %% 100 == 0 ) message(i)
  te_use = te_bed[ te_bed$name == te_names[i] ]
- olap_vec[i] = sum(signify::granges_overlap(pgr, te_use, minOverlap = 0, return_type = 'logical'))
+ olap_vec[i] = sum(genomic_region_tools::granges_overlap(pgr, te_use, minOverlap = 0, return_type = 'logical'))
 }
 names(olap_vec) = te_names
 #write_csv(data.frame(name = names(olap_vec), peaks_olapping_TE=olap_vec), paste0(storeFigPath, 'mouse_atlas_peakset_te_overlap.csv'))
@@ -5244,7 +5246,7 @@ ggplot(sum_df[sum_df$total > 10, ], aes(y=percent_olap, x = log10(total))) +
 dev.off()
 
 
-peak_anno_df = signify::granges_overlap(te_bed, pgr, minOverlap = 0, return_type = 'pairs')
+peak_anno_df = genomic_region_tools::granges_overlap(te_bed, pgr, minOverlap = 0, return_type = 'pairs')
 peak_anno_df$name = te_bed$name[as.integer(peak_anno_df$a_index)]
 peak_anno_df$peakType = pgr$peakType[as.integer(peak_anno_df$b_index)]
 ggplot(peak_anno_df) + geom_bar(aes(x=forcats::fct_infreq(peakType))) + labs(x='Type of associated peaks', y = 'Count')
@@ -5271,7 +5273,7 @@ gannot = getGeneAnnotation(proj)
 pgr = getPeakSet(proj)
 
 te_bed = read_te('mm10', return_gr = T)
-te_bed$polap = signify::granges_overlap(te_bed, pgr, minOverlap = 0, return_type = 'logical')
+te_bed$polap = genomic_region_tools::granges_overlap(te_bed, pgr, minOverlap = 0, return_type = 'logical')
 
 library(ChIPseeker)
 library(org.Mm.eg.db)
@@ -5334,7 +5336,7 @@ dev.off()
 # library(GenomeInfoDb)
 # library(tidyverse)
 # library(maltesFunctions)
-# library(signify)
+# library(genomic_region_tools)
 # library(jj)
 # 
 # choose_seurat_file('mouse_normal', 'CD4')
@@ -7069,7 +7071,7 @@ dev.off()
 #   nebula_peripheral_exclusive = peripheral_conserved$feature[peripheral_conserved$exclusive]
 # ), marker_list)
 
-library(signify)
+library(genomic_region_tools)
 peripheral_sigs = lapply(peripheral_sigs, convert_granges)
 
 proj = archr_add_peak_signatures(proj, signature_list = peripheral_sigs[c('Colon', 'Skin','VAT')], signature_name = 'nebula_tissue_')
@@ -7392,7 +7394,7 @@ dev.off()
 library(jj)
 library(GenomicRanges)
 library(tidyverse)
-library(signify)
+library(genomic_region_tools)
 library(Seurat)
 #Compare 4,411 human tissue Treg peaks to 7,500 murine tissue Treg peaks with regard to TE subfamily enrichment .
 
