@@ -53,7 +53,7 @@ png(paste0(storeFigPath, 'mouse_imm_cell_atlas_tissue.png'), width = 7, height =
 gg
 dev.off()
 
-### S1C Clusters umap
+### S1D Clusters umap
 dr_df$Clusters_0.5 = mixsort_factor(dr_df$Clusters_0.5)
 gg = jj_plot_features(dr_df, features='Clusters_0.5', pt_size = 0.5, 
                                             return_gg_object = T, label_type = 'geom_label', fill_colors = 'white') 
@@ -116,7 +116,7 @@ dev.off()
 # dev.off()
 
 
-# 2E Mouse atlas marker genes
+# Mouse atlas marker genes
 genes_plot = c( 'Entpd1', 'Maf', 'Irf4', 'Pparg','Col15a1', 'Vps8')
 gg = archr_plot_markers(proj, genes_plot)
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_magic_marker_umap.pdf'),  width = 7.5, height = 6)
@@ -332,7 +332,7 @@ dev.off()
 # dev.off()
 
 
-# S2D cell type tissue distribution
+# S1E cell type tissue distribution
 dr_df$cluster_annotation_levelx = factor(dr_df$cluster_annotation_level0,
                                          levels = rev(gtools::mixedsort(unique(dr_df$cluster_annotation_level0))))
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tissue_by_cell_type_barplot.pdf'),  width = 6, height = 3.5)
@@ -497,7 +497,7 @@ ht = Heatmap(htmat, rect_gp = gpar(type = "none"), column_dend_side = 'top', sho
                # }
              })
 
-# S1J Mouse atlas tissue-cell type correlation heatmap
+# S1F Mouse atlas tissue-cell type correlation heatmap
 pdf(paste0(storeFigPath, 'celltype_tissue_correlation_heatmap.pdf'), width = 12, height = 10)
 draw(ht, padding =  unit(c(45, 2, 2, 2), 'mm'))
 dev.off()
@@ -565,7 +565,7 @@ marker_df = archr_get_markers_as_df(markers_use_se, proj, cutOff = "FDR <= 0.01 
 #write_csv(marker_df, paste0(storeFigPath, 'table_1d_mouse_immune_cell_atlas_marker_peaks.csv'))
 marker_list = split(marker_df, marker_df$comparison)
 marker_list = lapply(marker_list, '[[', 'feature')
-#S1E Mouse atlas marker peaks upset plot
+#S1G Mouse atlas marker peaks upset plot
 pdf(paste0(storeFigPath, 'mouse_marker_peak_upset_plot.pdf'), width =8, height=6)
   jj_plot_upsetr(marker_list)
 dev.off()
@@ -980,7 +980,7 @@ olap_df = read_rds('/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/a
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
 dr_df$pct_overlap = olap_df$signature_pct_overlap
 
-# 2A: Mouse atlas tisTreg signature percentage overlap
+# 2F: Mouse atlas tisTreg signature percentage overlap
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tisTreg_signature_overlap_umap.pdf'),  width = 10, height = 8)
 jj_plot_features(dr_df, features = 'pct_overlap', return_gg_object = T)[[1]] + labs(colour = '% overlap') 
 dev.off()
@@ -1023,7 +1023,7 @@ ht = Heatmap(htmat, show_row_names=T, show_column_dend = F, show_row_dend = F, g
              show_column_names = F, column_split = 5, name = 'scaled\naccessibility')
 ht = draw(ht)
 
-# 2C Mouse atlas tisTreg signature subset heatmap
+# 2H Mouse atlas tisTreg signature subset heatmap
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tisTreg_signature_subset_heatmap.pdf'), width =8, height=5)
 ht
 dev.off()
@@ -1176,7 +1176,7 @@ gsea_res_comb$name = from_to(vec= gsea_res_comb$name, old_new_map_vec=c(
   'mouse_cd4_tisTreg_peaks'= 'tisTregST2'
 ))
 
-# 2D Mouse atlas tisTreg signature subset homer known motif heatmap (and S7H)
+# 2I Mouse atlas tisTreg signature subset homer known motif heatmap (and S7H)
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tisTreg_signature_subset_homer.pdf'), width =5, height=8)
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tisTreg_signature_complete_homer.pdf'), width =5, height=8)
 ggplot(gsea_res_comb, aes(x = name, y = motif, fill = enrichment)) +
@@ -1266,7 +1266,7 @@ for(i in homer_subsets){
     combined_gg[[j]] = pwm_gg_list[[j]] +  match_df_gg[[j]] # + plot_layout(widths=c(1,2))
   }
   all_gg = combined_gg[[1]] / combined_gg[[2]] / combined_gg[[3]] / combined_gg[[4]] / combined_gg[[5]]
-  # S2G S2H S2I Mouse atlas tisTreg signature subset de novo homer results
+  # S2H S2I S2J Mouse atlas tisTreg signature subset de novo homer results
   pdf(paste0(storeFigPath, i, '_top5_de_novo.pdf'), width = 9, height = 9)
   print(all_gg)
   dev.off()
@@ -1294,7 +1294,7 @@ dr_df = jj_get_reduction_coords(proj, 'UMAP')
 dr_df$Clusters_1.2 = mixsort_factor(dr_df$Clusters_1.2)
 gg = jj_plot_features(reduction=dr_df, meta_features='Clusters_1.2',  
                       return_gg_object = T, label_type = 'geom_label', label_col = 'white')
-# S1K Mouse tnkilc subset clusters
+# Mouse tnkilc subset clusters
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tnkilc_clusters.pdf'),  width = 8, height = 6)
 gg
 dev.off()
@@ -1303,7 +1303,7 @@ dev.off()
 gg = jj_plot_features(dr_df, features='Tissue', 
                       custom_colors = jj_get_colours(dr_df$Tissue, '/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/colour_map.csv'),
                       return_gg_object = T) 
-# 1G Mouse tnkilc subset tissue umap
+# 2A Mouse tnkilc subset tissue umap
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tnkilc_tissue.pdf'),  width = 8, height = 6)
 png(paste0(storeFigPath, 'mouse_imm_cell_atlas_tnkilc_tissue.png'), width = 7, height = 6, res = 400, units = 'in')
 gg
@@ -1315,7 +1315,7 @@ dr_df$cluster_annotation_fine[dr_df$cluster_annotation_fine == 'Th_Il21'] = 'Tfh
 gg = jj_plot_features(reduction = dr_df, meta_features = 'cluster_annotation_fine', label_type = 'geom_label',
                  custom_colors = jj_get_colours(dr_df$cluster_annotation_fine, '/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/colour_map.csv', comment_char = '$'),
                  return_gg_object = T)[[1]] + labs(colour = 'Cell type')
-# 1H Mouse tnkilc subset cell type umap  
+# 2B Mouse tnkilc subset cell type umap  
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tnkilc_annotation.pdf'),  width = 8, height = 6)
 gg  
 dev.off()
@@ -1341,7 +1341,7 @@ genes_plot = c('Areg','Batf', 'Bcl6', 'Cd3e', 'Cd8a', 'CTLA4','Cxcr5',
                'Rorc','Tbx21','Tox','Il5','Il13')
 genes_plot = c( 'Emp1', 'Krt28', 'Ctsh')
 gg = archr_plot_markers(proj, genes_plot)
-# S2B 3L Mouse tnkilc subset marker gene umaps
+# S2L 3K Mouse tnkilc subset marker gene umaps
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tnkilc_subset_magic_marker_umap.pdf'),  width = 7.5, height = 6)
 gg
 dev.off()
@@ -1457,7 +1457,7 @@ dr_df = jj_get_reduction_coords(proj_use, 'UMAP')
 
 gg = jj_plot_features(dr_df, features = 'Tissue', custom_colors = jj_get_colours(dr_df$Tissue, '/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/colour_map.csv'), return_gg_object = T)[[1]]
 cont_df = jj_get_contour_lines(dr_df, 'annotation', .95)
-# S2E Mouse CD4 treg subset annotation umap
+# S2C Mouse CD4 treg subset annotation umap
 pdf(paste0(storeFigPath, 'mouse_cd4_treg_subset_annotation_umap.pdf'), width =8, height=6)
 gg + geom_path(data = cont_df, aes(x=x, y=y, group=cont_group, linetype = annotation), #, colour=snn_harmony_res.1), 
                size=1) + labs(linetype = 'Cell type')
@@ -1468,12 +1468,12 @@ gg2 =   monocle3::plot_cells(cds, color_cells_by = 'pseudotime', label_leaves = 
   theme_minimal() + coord_fixed()
 gg$layers[[2]] = gg2$layers[[2]]
 
-# S2D Mouse CD4 treg subset trajectory umap
+# S2E Mouse CD4 treg subset trajectory umap
 pdf(paste0(storeFigPath, 'mouse_cd4_treg_subset_trajectory_umap.pdf'), width =8, height=6)
 gg + labs(colour='Pseudotime')
 dev.off()
 
-# S2C Mouse CD4 treg subset tisTreg signature percentage overlap umap
+# S2D Mouse CD4 treg subset tisTreg signature percentage overlap umap
 pdf(paste0(storeFigPath, 'mouse_cd4_treg_signature_overlap_umap.pdf'), width =8, height=6)
   jj_plot_features(dr_df, features = 'signature_pct_overlap', return_gg_object = T)[[1]] + labs(colour='% Overlap')
 dev.off()
@@ -1748,7 +1748,7 @@ for(i in 1:nrow(cdf)){
                    group2 = unlist(cdf[i, 'group2']), markers_highlight = unlist(cdf[i, 'markers_highlight']),
                    symbol_column = 'name', log2FC_thres = 0.5, labs_range = c(-5,5,-5,5))
 }
-# 3C, 3D, 3E, 3J, 4B, 4C, 4F fc-fc scatterplots tisTreg vs others
+# 3B, 3D, 3E, 3J, 4D, 4G, 4H fc-fc scatterplots tisTreg vs others
 pdf(paste0(storeFigPath, 'tisTregST2_other_cell_types_fc_fc_plots.pdf'),  width = 10, height = 8)
 gg_list
 dev.off()
@@ -1906,7 +1906,7 @@ marker_peaks_df = archr_get_markers_as_df(proj = proj, markers = markers_peaks_s
 #markers_highlight = c('Itga4','Tbx21','Slamf7','Il10ra','Pdcd1','Runx3', 'Itga1', 'Tox','Ncr1','Batf','Ifng','Pparg', 'Klrb1c','Il1rl1','Areg','Ereg','Ccr8')
 markers_highlight = c('Areg','Il4','Il13','Il6')
 
-# 4G ILC2 subset volcano plot
+# 4E ILC2 subset volcano plot
 pdf(paste0(storeFigPath, 'ILC2_volcano_plot.pdf'),  width = 8, height = 6)
 #jj_volcano_plot(marker_df, logfc_column = 'Log2FC', pval_column = 'FDR', symbol_column = 'name', 
 #                labs_range = c(-4,4), pt.size = 1, marker_thres = Inf, markers_highlight = markers_highlight)
@@ -1923,7 +1923,7 @@ dev.off()
 marker_tf_df = archr_get_markers_as_df(proj = proj, markers = markers_TF_se, cutOff =  "FDR <= 1", annotate_closest_gene = F)
 marker_tf_df$name = sapply(strsplit(marker_tf_df$name, '_'),'[[',1)
 markers_highlight = marker_tf_df$name[abs(marker_tf_df$MeanDiff) >=0.075]
-# S4M ILC2 TF chromvar score volcano plot
+# S4H ILC2 TF chromvar score volcano plot
 pdf(paste0(storeFigPath, 'ILC2_chromvar_volcano_plot.pdf'),  width = 8, height = 6)
 jj_volcano_plot(marker_tf_df, logfc_column = 'MeanDiff', pval_column = 'FDR', symbol_column = 'name', 
                 labs_range = c(-0.25, 0.25), pt.size = 1, marker_thres = Inf, markers_highlight = markers_highlight,
@@ -2039,7 +2039,7 @@ marker_peaks_df = archr_get_markers_as_df(proj = proj, markers = markers_peaks_s
 #markers_highlight = c('Rora','Il17a')
 markers_highlight = c('Areg','Il4','Il13','Il6')
 
-# 3K Th17_Areg vs Th17 volcano plot
+# 3M Th17_Areg vs Th17 volcano plot
 pdf(paste0(storeFigPath, 'CD4_other_Th17_volcano_plot.pdf'),  width = 8, height = 6)
 #jj_volcano_plot(marker_df, logfc_column = 'Log2FC', pval_column = 'FDR', symbol_column = 'name', 
 #                labs_range = c(-4,4), pt.size = 1, marker_thres = Inf, markers_highlight = markers_highlight, highlight.pt.size = 5, col_vec = c("black", "black", "black","red"))
@@ -2143,7 +2143,7 @@ marker_peaks_df = archr_get_markers_as_df(proj = proj, markers = markers_peaks_s
 #markers_highlight = c('Rora','Il17a')
 markers_highlight = c('Areg','Il4','Il13','Il6')
 
-# 3B: tisTreg vs pTreg volcano plot
+# tisTreg vs pTreg volcano plot
 pdf(paste0(storeFigPath, 'colon_tisTreg_vs_ptreg_volcano_plot.pdf'),  width = 8, height = 6)
 #jj_volcano_plot(marker_df, logfc_column = 'Log2FC', pval_column = 'FDR', symbol_column = 'name', 
 #                labs_range = c(-4,4), pt.size = 1, marker_thres = Inf, markers_highlight = markers_highlight, highlight.pt.size = 5, col_vec = c("black", "black", "black","red"))
@@ -2259,7 +2259,7 @@ p = plotBrowserTrack(proj,
                      useGroups = groups_select, 
                      tileSize = 50,
                      pal = my_cols)
-# 2H 3M S3E 4E 4J Mouse atlas browser tracks
+# Mouse atlas browser tracks
 pdf(paste0(storeFigPath, 'mouse_atlas_browser_tracks_additional.pdf'), width = 8, height = 6)
 sapply(p, plot)
 dev.off()
@@ -2477,7 +2477,7 @@ dev.off()
 # gg = as.ggplot(p$Ikzf2)
 # gg + scale_colour_manual(values = )
 
-# Figure 3 T/NK/ILC subset comparisons ------------------------------------
+# T/NK/ILC subset comparisons ------------------------------------
 
 proj = loadArchRProject('ArchRProject_t_nk_ilc_subset_corrected')
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
@@ -2654,7 +2654,7 @@ proj = loadArchRProject(path = paste0(pconfig$ARCHR_DIR, pconfig$ARCHR_PROJECT))
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
 gmat = get_gene_mat(proj)
 
-### S6D: Mouse Areg-GFP Tissue umap
+### Mouse Areg-GFP Tissue umap
 gg = jj_plot_features(dr_df, features='Tissue', pt_size = 0.5,
                       custom_colors = jj_get_colours(dr_df$Tissue, '/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/colour_map.csv'),
                       return_gg_object = T)
@@ -2726,7 +2726,7 @@ label_subset = unique(dr_df$predictions)[!unique(dr_df$predictions) %in% c('unde
 gg = jj_plot_features(reduction=dr_df, meta_features='annotation', pt.size = 0.5, label_type = 'geom_label_repel', #label_subset = label_subset,
                       custom_colors = jj_get_colours(dr_df$annotation, '/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/colour_map.csv', comment_char = '$'),
                       return_gg_object = T)[[1]] + labs(colour='Cell type') 
-# not included
+# S4A
 pdf(paste0(storeFigPath, 'mouse_areg_gfp_annotation.pdf'),  width = 10, height = 8)
 gg
 dev.off()
