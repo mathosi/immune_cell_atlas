@@ -1,19 +1,10 @@
 
 pconfig = yaml::read_yaml('/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/config_mouse_areg_gfp.yaml')
 
-#print config variables
-pconfig
-
 set.seed(1)
-#addArchRThreads(threads = 1) 
 addArchRGenome(pconfig$GENOME)
 bigFilesDir <- "/omics/groups/OE0436/internal/msimon/scATAC/"
 setwd(pconfig$ARCHR_DIR) #important since archr works with relative paths
-getwd()
-
-#view available data
-list.dirs(getwd(), recursive = F)
-
 
 proj = loadArchRProject(path = paste0(pconfig$ARCHR_DIR, 'ArchRProject_filtered_no_doublets_peaks'))
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
