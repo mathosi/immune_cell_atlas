@@ -1,7 +1,5 @@
 library(jj)
 library(ArchR)
-#mouse subset analysis\
-#addArchRThreads(threads = 1) 
 pconfig = yaml::read_yaml('/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/config_human_normal_donor13.yaml')
 addArchRGenome(pconfig$GENOME)
 bigFilesDir <- "/omics/groups/OE0436/internal/msimon/scATAC/"
@@ -57,8 +55,6 @@ proj$cluster_annotation_level3 = from_to(vec= dr_df$Clusters_0.5, old_new_map_ve
   'C15'= 'Myeloid progenitor/Neutrophil (netosis?)',
   'C16'= 'Neutrophil'
 ))
-
-
 
 dr_df = as.data.frame(proj@cellColData)
 dr_df$singler_monaco = dr_df$singler_label
