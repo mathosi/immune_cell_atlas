@@ -3292,7 +3292,7 @@ dr_df = jj_get_reduction_coords(proj, 'UMAP')
 gg = jj_plot_features(dr_df, features='Tissue', pt_size = 0.5, 
                       custom_colors = jj_get_colours(dr_df$Tissue, '/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/colour_map.csv'),
                       return_gg_object = T) 
-# S5N Human donor 11 tissue umap
+# Human donor 11 tissue umap
 pdf(paste0(storeFigPath, 'human_d11_tissue.pdf'),  width = 10, height = 8)
 gg
 dev.off()
@@ -3332,7 +3332,7 @@ dr_df$Clusters_0.6 = mixsort_factor(dr_df$Clusters_0.6)
 gg = jj_plot_features(dr_df, features='Clusters_0.6', pt_size = 0.5, 
                       return_gg_object = T, label_type = 'geom_text', fill_colors = 'black') 
 
-# S5P Human donor 11 clusters umap
+# Human donor 11 clusters umap
 pdf(paste0(storeFigPath, 'human_d11_clusters.pdf'),  width = 10, height = 8)
 gg
 dev.off()
@@ -3345,7 +3345,7 @@ pdf(paste0(storeFigPath, 'human_d11_nFrags.pdf'),  width = 10, height = 8)
 gg
 dev.off()
 
-# S5M sample umap 
+# sample umap 
 gg = jj_plot_features(dr_df, features='Sample', pt_size = 0.5, 
                       return_gg_object = T)
 pdf(paste0(storeFigPath, 'human_d11_sample.pdf'),  width = 10, height = 8)
@@ -3446,7 +3446,7 @@ markers_se = read_rds(paste0(bigFilesDir, 'human_atlas_donor11_cluster_annotatio
 markers_use_se = markers_se[, !colnames(markers_se) %in% 'undefined']
 #transpose = T results in wrong clustering of cell types, nLabel = 0 is not possible...
 
-# S5R Human donor 11 marker peak heatmap
+# Human donor 11 marker peak heatmap
 pdf(paste0(storeFigPath, 'human_d11_marker_peak_heatmap.pdf'), width =6, height=6)
 plotMarkerHeatmap(markers_use_se, 
                   cutOff = "FDR <= 0.01 & Log2FC >=0.5",  
@@ -3636,7 +3636,7 @@ h1 <- Heatmap(plot_mat, col = col_fun,
               column_names_gp = gpar(fontsize = 8), 
               row_names_gp = gpar(fontsize = 8),
               top_annotation = ha)
-# S5S Human donor 11 chromvar z-score heatmap peripheral vs blood
+# S5H Human donor 11 chromvar z-score heatmap peripheral vs blood
 pdf(paste0(storeFigPath, 'human_d11_peripheral_tf_heatmap.pdf'), width =10, height=3)
 h1
 dev.off()
@@ -3681,7 +3681,7 @@ gg2 = plotFootprints(
 )
 
 plist = list(`T cell BATF.bZIP` = gg$BATF.bZIP_20, `Macrophage/Monocyte BATF.bZIP` = gg2$BATF.bZIP_20)
-# S5T Human donor 11 TF footprints
+# Human donor 11 TF footprints
 pdf(paste0(storeFigPath, 'human_d11_tf_footprints.pdf'), width =6, height=5)
 do.call(cowplot::plot_grid, c(list(ncol = 2, labels = c('T cell', 'Macrophage/Monocyte'), label_size=10),plist))
 dev.off()
@@ -3878,7 +3878,7 @@ dr_df = jj_get_reduction_coords(proj, 'UMAP')
 gg = jj_plot_features(dr_df, features='Tissue', pt_size = 0.5,
                       custom_colors = jj_get_colours(dr_df$Tissue, '/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/colour_map.csv'),
                       return_gg_object = T) 
-# 5A Human donor 13 Tissue umap
+# S5A Human donor 13 Tissue umap
 pdf(paste0(storeFigPath, 'human_d13_tissue.pdf'),  width = 10, height = 8)
 gg
 dev.off()
@@ -3922,7 +3922,7 @@ gg = jj_plot_features(dr_df, features='cluster_annotation_level3', pt_size = 0.5
                       custom_colors = cols_use,
                       return_gg_object = T)[[1]] + labs(colour='Cell type') 
 
-# 5B Human donor 13 Tissue umap
+# S5B Human donor 13 Tissue umap
 pdf(paste0(storeFigPath, 'human_d13_annotation_fine.pdf'),  width = 10, height = 8)
 gg
 dev.off()
@@ -3939,7 +3939,7 @@ dr_df$Clusters_1.2 = mixsort_factor(dr_df$Clusters_1.2)
 gg = jj_plot_features(dr_df, features='Clusters_1.2', pt_size = 0.5, 
                        return_gg_object = T, label_type = 'geom_text', fill_colors = 'black') 
 
-# S5C Human donor 13 clusters umap
+# Human donor 13 clusters umap
 pdf(paste0(storeFigPath, 'human_d13_clusters.pdf'),  width = 10, height = 8)
 gg
 dev.off()
@@ -4031,7 +4031,7 @@ features_plot = lapply(features_plot, toupper)
 dr_df = jj_get_reduction_coords(proj)
 gmat = get_gene_mat(proj)
 
-# 5D: Human donor 13 marker gene dotplot
+# S5D: Human donor 13 marker gene dotplot
 pdf(paste0(storeFigPath, 'human_d13_marker_heatmap.pdf'),  width = 10, height = 5)
 seurat_dotplot(gmat=gmat, metadf = dr_df,
                features = unique(unname(unlist(features_plot))),
@@ -4060,14 +4060,14 @@ dev.off()
 #cell type tissue distribution
 dr_df$cluster_annotation_levelx = factor(dr_df$cluster_annotation_level0,
                                          levels = rev(gtools::mixedsort(unique(dr_df$cluster_annotation_level0))))
-# S5J Human donor 13 cell type distribution in tissues
+# Human donor 13 cell type distribution in tissues
 pdf(paste0(storeFigPath, 'human_d13_tissue_by_cell_type_barplot.pdf'),  width = 6, height = 3.5)
 jj_plot_categorical_by_group(dr_df, 'Tissue2', 'cluster_annotation_levelx', flip_coordinates = T,
                              custom_colors = jj_get_colours(dr_df$Tissue, '/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/colour_map.csv')) + 
   labs(x = 'Cell type', y = 'Fraction', fill = 'Tissue')
 dev.off()
 
-# 5C: marker umaps
+# S5C: marker umaps
 genes_plot = c( 'FOXP3', 'GATA3', 'TBX21', 'RORC')
 #genes_plot = c('CTLA4', 'IKZF2', 'IL2RA', 'GITR', 'BCL6', 'MAF')
 gg = archr_plot_markers(proj, genes_plot)
@@ -4140,7 +4140,7 @@ motifsUp <- peakAnnoEnrichment(
 )
 
 heatmapEM <- plotEnrichHeatmap(motifsUp, n = 5, transpose = T)
-# S5G Enriched TFs in the marker peaks of human donor 13
+# Enriched TFs in the marker peaks of human donor 13
 pdf(paste0(storeFigPath, 'human_d13_cell_type_markers_enr_motifs_heatmap.pdf'),  width = 7, height =5)
 ComplexHeatmap::draw(heatmapEM, heatmap_legend_side = "bot", annotation_legend_side = "bot")
 dev.off()
@@ -4196,7 +4196,7 @@ olap_df = read_rds('/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/a
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
 dr_df$pct_overlap = olap_df$signature_pct_overlap
 
-# S5F Human donor 13 tisTreg signature liftover percentage overlap
+# Human donor 13 tisTreg signature liftover percentage overlap
 pdf(paste0(storeFigPath, 'human_d13_tisTreg_signature_overlap_umap.pdf'),  width = 10, height = 8)
 jj_plot_features(dr_df, features = 'pct_overlap', return_gg_object = T)[[1]] + labs(colour = '% overlap') 
 dev.off()
@@ -4208,7 +4208,7 @@ dr_df$cluster_annotation_fine = from_to(vec= dr_df$cluster_annotation_level3, ol
   'pDC' = 'DC'
 ))
 
-# 5H Human donor 13 tisTreg signature percentage overlap boxplot
+# S5I Human donor 13 tisTreg signature percentage overlap boxplot
 pdf(paste0(storeFigPath, 'human_d13_tisTreg_signature_overlap_boxplot.pdf'),  width = 6, height = 5)
 jj_plot_numeric_by_group(dr_df[!dr_df$cluster_annotation_fine == 'undefined', ], 'pct_overlap', group_column = 'cluster_annotation_fine', 
                          order = T, flip_coordinates = T, type = 'boxplot',
@@ -4250,7 +4250,7 @@ library(ComplexHeatmap)
 ht = Heatmap(htmat, show_row_names=T, show_column_dend = F, show_row_dend = F, gap = unit(3,'mm'),
              show_column_names = F, column_split = 6, name = 'scaled\naccessibility')
 ht = draw(ht)
-# 5I Human donor 13 human tisTreg signature subset heatmap
+# S5J Human donor 13 human tisTreg signature subset heatmap
 pdf(paste0(storeFigPath, 'human_d13_tisTreg_liftover_signature_subset_heatmap.pdf'), width =8, height=5)
 ht
 dev.off()
@@ -4344,7 +4344,7 @@ gsea_res_comb$name = from_to(vec= gsea_res_comb$name, old_new_map_vec=c(
   'c6_granulocyte'= '6'
 ))
 
-# 5J Human donor 13 tisTreg signature subsets homer known motif heatmap
+# S5K Human donor 13 tisTreg signature subsets homer known motif heatmap
 pdf(paste0(storeFigPath, 'human_d13_tisTreg_signature_subset_homer.pdf'), width =5, height=8)
 ggplot(gsea_res_comb, aes(x = name, y = motif, fill = enrichment)) +
   geom_tile(color = "black") +
@@ -4521,7 +4521,7 @@ h1 <- Heatmap(plot_mat, col = col_fun,
               column_names_gp = gpar(fontsize = 8), 
               row_names_gp = gpar(fontsize = 8),
               top_annotation = ha)
-# 5F Human donor 13 cromvar z-score heatmap peripheral vs blood
+# S5F Human donor 13 cromvar z-score heatmap peripheral vs blood
 pdf(paste0(storeFigPath, 'human_d13_peripheral_tf_heatmap.pdf'), width =10, height=4)
 h1
 dev.off()
@@ -4566,7 +4566,7 @@ gg2 = plotFootprints(
 )
 
 plist = list(`T cell BATF.bZIP` = gg$BATF.bZIP_20, `Macrophage/Monocyte BATF.bZIP` = gg2$BATF.bZIP_20)
-# 5G Human donor 13 TF foottprints
+# S5G Human donor 13 TF foottprints
 pdf(paste0(storeFigPath, 'human_d13_tf_footprints.pdf'), width =6, height=5)
 do.call(cowplot::plot_grid, c(list(ncol = 2, labels = c('T cell', 'Monocyte'), label_size=10),plist))
 dev.off()
@@ -4600,7 +4600,7 @@ te_heatmap = jj_plot_heatmap(obj = t(comb_norm_df[cells_keep, ]), features_use =
 te_heatmap@top_annotation@anno_list$Feature@color_mapping@name = 'PMID 33674594 annotation'
 te_heatmap@matrix_legend_param$title = 'Scaled mean accessibility'
 
-#S7B TE quantification validation
+#S6B TE quantification validation
 pdf(paste0(storeFigPath, 'human_pbmc_scatac_figS11_validation.pdf'), width = 10, height=4)
 draw(te_heatmap,  annotation_legend_side = 'bottom', heatmap_legend_side ='bottom', merge_legend = TRUE)
 dev.off()
@@ -4666,7 +4666,7 @@ stopifnot(identical(rownames(dr_df), rownames(comb_norm_df)))
 ### Heatmap per cell type
 sum_mat = jj_summarize_sparse_mat(Matrix::t(comb_norm_df), proj$cluster_annotation_level0)
 sum_mat_scaled = scale(t(sum_mat))
-# S7F Mouse atlas global TE heatmap per cell type
+# S6D Mouse atlas global TE heatmap per cell type
 pdf(paste0(storeFigPath, 'mouse_te_celltype_heatmap.pdf'), width =8, height=4)
 Heatmap(sum_mat_scaled, name = 'scaled\nmean accessibility', show_column_names = F,
         cluster_rows = T)
@@ -4680,7 +4680,7 @@ comb_norm_df = prepare_comb_norm_df(pconfig, proj_colon)
 stopifnot(identical(rownames(dr_df), rownames(comb_norm_df)))
 sum_mat = jj_summarize_sparse_mat(Matrix::t(comb_norm_df), proj_colon$cluster_annotation_level0)
 sum_mat_scaled = scale(t(sum_mat))
-# 6E Mouse atlas colon subset te heatmap per cell type
+# 5E Mouse atlas colon subset te heatmap per cell type
 pdf(paste0(storeFigPath, 'mouse_colon_te_celltype_heatmap.pdf'), width =8, height=4)
 Heatmap(sum_mat_scaled, name = 'scaled\nmean accessibility', show_column_names = F,
         cluster_rows = T)
@@ -4734,7 +4734,7 @@ sobj = RunUMAP(sobj, dims = 1:20)
 dr_df = jj_get_reduction_coords(sobj, 'umap')
 col_map = jj_get_colours(dr_df$cluster_annotation_level0, '/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/colour_map.csv', comment_char = '$')
 
-#6C 6D S7E Mouse atlas (colon subset) TE umap
+#6C 6D S6E Mouse atlas (colon subset) TE umap
 pdf(paste0(storeFigPath, 'mouse_atlas_distal_te_umap.pdf'), width = 10, height=8)
 jj_plot_features(dr_df, features = 'cluster_annotation_level0', custom_colors = col_map)
 jj_plot_features(dr_df, features = 'Tissue', custom_colors = jj_get_colours(dr_df$Tissue, '/omics/groups/OE0436/data2/simonma/projects/scATAC/scripts/colour_map.csv'))
@@ -4774,7 +4774,7 @@ sum_mat_scaled = scale(t(sum_mat))
 colnames(sum_mat_scaled)[!complete.cases(t(sum_mat_scaled))]
 sum_mat_scaled = t(t(sum_mat_scaled)[complete.cases(t(sum_mat_scaled)), ])
 
-#6F tnkilc subset TE heatmap per celltype
+#6G tnkilc subset TE heatmap per celltype
 pdf(paste0(storeFigPath, 'mouse_tnkilc_te_celltype_heatmap.pdf'), width =8, height=4)
 Heatmap(sum_mat_scaled, name = 'scaled\nmean accessibility', show_column_names = F,
         cluster_rows = T)
@@ -4820,7 +4820,7 @@ column_ha = HeatmapAnnotation(Class = family_df$Class[match(colnames(sum_mat_sca
 mean_scaled_scores = apply(sum_mat_scaled, 1, mean)
 row_ha = rowAnnotation(Mean =anno_barplot(mean_scaled_scores))
 
-# S8A tnkilc TE integrations in the tisTreg signature heatmap per cell type
+# S8B tnkilc TE integrations in the tisTreg signature heatmap per cell type
 pdf(paste0(storeFigPath, 'mouse_tnkilc_tisTreg_sig_fisher_signif_te_celltype_heatmap.pdf'), width =14, height=5)
 pdf(paste0(storeFigPath, 'mouse_tnkilc_tisTreg_sig_fisher_signif_te_only_tisTreg_sig_olap_celltype_heatmap.pdf'), width =14, height=5)
 Heatmap(sum_mat_scaled, name = 'scaled\nmean accessibility', show_column_names = T,
@@ -4839,7 +4839,7 @@ pdf(paste0(storeFigPath, 'umap_mouse_tnkilc_tisTreg_sig_fisher_signif_te_only_ti
 jj_plot_features(dr_df, 'tisTreg_te_scaled_mean', cap_top = 'q99', cap_bottom = 'q01')
 dev.off()
 
-# 6H S8B only tisTreg-sig overlapping sites tisTreg TE scaled mean boxplot
+# 5I only tisTreg-sig overlapping sites tisTreg TE scaled mean boxplot
 # pdf(paste0(storeFigPath, 'umap_mouse_tnkilc_tisTreg_sig_fisher_signif_te_boxplot.pdf'),  width = 4, height = 4)
 # pdf(paste0(storeFigPath, 'umap_mouse_tnkilc_tisTreg_sig_fisher_signif_te_only_tisTreg_sig_olap_boxplot.pdf'),  width = 4, height = 4)
 jj_plot_numeric_by_group(dr_df, 'tisTreg_te_scaled_mean',
@@ -4972,12 +4972,12 @@ gg = ggplot(gsea_res_comb, aes(x = name, y = motif, fill = enrichment)) +
 
 library(ggpubr)
 
-ggfake = ggplot(gsea_res_comb, aes(x = domain, fill = domain)) + geom_bar() + 
+ggleg = ggplot(gsea_res_comb, aes(x = domain, fill = domain)) + geom_bar() + 
   scale_fill_manual(values = domain_cols) + labs(fill = 'Domain')
-domain_legend  = as_ggplot(get_legend(ggfake))
+domain_legend  = as_ggplot(get_legend(ggleg))
 
 library(patchwork)
-# 6I tisTreg signature peak overlap vs nonoverlapping part TE homer enrichment heatmap
+# 6A tisTreg signature peak overlap vs nonoverlapping part TE homer enrichment heatmap
 pdf(paste0(storeFigPath, 'mouse_tisTreg_sig_te_olap_nonolap_subsets_homer_heatmap.pdf'),  width = 5, height = 10)
 gg + domain_legend #+ plot_layout(widths = c(3, 1))
 dev.off()
@@ -5137,7 +5137,7 @@ family_df = family_df %>% dplyr::arrange(Class)
 family_df$Family = factor(family_df$Family, levels = rev(unique(family_df$Family)))
 cols_use = jj_get_colours(family_df$Class, colour_csv = '/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/colour_map.csv', comment_char = '$')
 
-#S7C TE class and family overview
+#S6A TE class and family overview
 pdf(paste0(storeFigPath, 'TE_family_overview.pdf'), width = 6, height = 4)
 ggplot(family_df, aes(x=Family, y = n, fill = Class)) + geom_bar(stat = 'identity') + coord_flip() + 
   theme_minimal() + labs(y = 'n (TE members)')  + scale_fill_manual(values = cols_use)
@@ -5199,15 +5199,15 @@ sum_df = as.data.frame(te_bed@elementMetadata) %>%
 
 sum_df = sum_df %>% dplyr::left_join(family_df, by = c('name' = 'TE'))
 
-tab_6a_df = sum_df %>% dplyr::relocate(name, Family, Class) %>% 
+tab_6f_df = sum_df %>% dplyr::relocate(name, Family, Class) %>% 
   dplyr::rename(n_insertions = total, n_peak_overlap = polap, class = Class, family=Family)
-#write_csv(tab_6a_df, paste0(storeFigPath, 'table_6a_te_overview.csv'))
+#write_csv(tab_6f_df, paste0(storeFigPath, 'table_6a_te_overview.csv'))
 #polap = TEs overlapping with any peak, peaks_olapping_TE = peak overlapping with any of the te insertions (by te)
 sum_df = sum_df %>% dplyr::left_join(data.frame(percent_olap= olap_vec_pct, peaks_olapping_TE=olap_vec, TE = names(olap_vec_pml)), by = c('name' = 'TE'))
 # hist(sum_df$fraction, breaks = 100)
 cols_use = jj_get_colours(sum_df$Class, colour_csv = '/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/colour_map.csv', comment_char = '$')
 
-# 6A: TE count and peak overlap fraction overview
+# 5A: TE count and peak overlap fraction overview
 pdf(paste0(storeFigPath, 'te_abundance_and_overlap_overview.pdf'), width = 10, height = 10)
 png(paste0(storeFigPath, 'te_abundance_and_overlap_overview.png'), width = 5, height = 5, res = 400, units = 'in')
 # cols_use = jj_get_jj_colours(sum_df$Family)
@@ -5303,11 +5303,11 @@ for(i in seq_along(peaks_anno_list)){
 }
 rownames(peaks_anno_df) = names(peak_annot_vec)
 peaks_anno_df['Total', ] = apply(peaks_anno_df, 2, sum)
-#S7D Table of genomic annoations for TEs and peaks
+#S6C Table of genomic annoations for TEs and peaks
 #write.csv(peaks_anno_df, paste0(storeFigPath, 'mouse_atlas_te_genomic_annotations.csv'))
 
 #library(RColorBrewer)
-#6B TE genomic region annotation barplot
+#5B TE genomic region annotation barplot
 pdf(paste0(storeFigPath, 'mouse_atlas_te_genomic_annotations.pdf'), width = 6, height = 3)
 cols_use = brewer.pal(6, 'RdYlBu')
 names(cols_use) = c('0-1kb', '1-3kb' ,'3-5kb', '5-10kb','10-100kb' ,'>100kb')
@@ -5496,7 +5496,7 @@ olap_df_list = read_rds('/omics/groups/OE0436/data2/simonma/projects/imm_cell_at
 
 #plot_signature_olap(dr_df, olap_df)
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
-#S6B Nebula tissue signature percentage overlap
+# 2C Nebula tissue signature percentage overlap
 pdf('/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/analysis/2023-07-12-finalizing_te_analysis/umap_mouse_tnkilc_nebula_exlcusive_peaks_pct_olap.pdf',  width = 8, height = 6)
 for(i in names(olap_df_list)){
   dr_df[[i]] = olap_df_list[[i]]$signature_pct_overlap #signature_pct_overlap
@@ -5534,7 +5534,6 @@ go_complete = go_complete[go_complete %in% rownames(gmat)]
 proj= ArchR::addModuleScore(proj, useMatrix = 'GeneScoreMatrix', features = list(cytokine_signaling=pathway_genes_use, cytokine_signaling_full=go_complete), name = 'go')
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
 
-#S6F
 pdf(paste0(storeFigPath, 'umap_mouse_tnkilc_reactome_cytokine_signaling_in_immune_system.pdf'),  width = 8, height = 6)
 jj_plot_features(dr_df, features = 'go.cytokine_signaling', cap_top = 'q99', cap_bottom = 'q01', return_gg_object = T)[[1]] +
   labs(colour = 'REACTOME\nCYTOKINE SIGNALING\nIN IMMUNE SYSTEM')
@@ -5584,7 +5583,8 @@ olap_df_list = read_rds('/omics/groups/OE0436/data2/simonma/projects/imm_cell_at
 
 #plot_signature_olap(dr_df, olap_df)
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
-#S6D
+
+#S1P                       
 pdf(paste0(storeFigPath, 'umap_mouse_areg_gfp_nebula_exlcusive_peaks_pct_olap.pdf'),  width = 8, height = 6)
 for(i in names(olap_df_list)){
   dr_df[[i]] = olap_df_list[[i]]$signature_pct_overlap
@@ -5620,7 +5620,7 @@ olap_df_list = read_rds('/omics/groups/OE0436/data2/simonma/projects/imm_cell_at
 
 #plot_signature_olap(dr_df, olap_df)
 dr_df = jj_get_reduction_coords(proj, 'UMAP')
-#S6C
+#S1O
 pdf(paste0(storeFigPath, 'umap_mouse_normal_cd4_nebula_exlcusive_peaks_pct_olap.pdf'),  width = 8, height = 6)
 for(i in names(olap_df_list)){
   dr_df[[i]] = olap_df_list[[i]]$signature_pct_overlap
@@ -5671,6 +5671,7 @@ plot_df$motif = sapply(strsplit(plot_df$motif, split = '/'), '[[', 1)
 # plot_df$log_FDR = min_max_normalize(plot_df$log_FDR) *3
 cols_use = c('n.s.' = 'grey', 'Colon' = 'purple', 'Skin' = 'darkblue', 'Both' = 'red')
 
+#2D
 pdf(paste0(storeFigPath, 'colon_skin_nebula_signature_homer_tf_scatterplot.pdf'), width = 10, height = 9)
 ggplot(plot_df, aes(x = enrichment_Colon, y = enrichment_Skin)) +
   geom_point(aes(colour = significant)) + #size = log_FDR
@@ -5681,12 +5682,6 @@ ggplot(plot_df, aes(x = enrichment_Colon, y = enrichment_Skin)) +
   #scale_size_area(na.value = 0.2)
 
 dev.off()
-
-
-
-
-
-
 
 # tisTreg signature TE overlap fisher test -------------------------------------
 
@@ -5761,7 +5756,7 @@ olaps_sig_df = olaps_sig_df %>% dplyr::left_join(family_df, by = c('name' = 'TE'
 family_col_df = family_df %>% dplyr::select(Class, Family) %>% .[!duplicated(.), ] %>% dplyr::arrange(Class, Family)
 cols_use_family = jj_get_colours(family_col_df$Family, colour_csv = '/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/scripts/colour_map.csv', comment_char = '$')
 
-#6G Fisher test enrichment of TE insertions in the tisTreg signature
+# Fisher test enrichment of TE insertions in the tisTreg signature
 pdf(paste0(storeFigPath, 'tisTreg_sig_te_enrichment_fisher_volcano_plot.pdf'), width = 8, height = 6)
 jj_plot_volcano(olaps_sig_df, logfc_column = 'odds_ratio',
                 pval_column = 'fdr', symbol_column = 'name',  marker_thres = c(2, 10), labs_range = c(0,10, 0, 10)) +
@@ -5787,7 +5782,7 @@ olaps_plot_df = olaps_plot_df[olaps_plot_df$both >= 10, ]
 olaps_plot_df$logfdr = -log10(olaps_plot_df$fdr)
 olaps_plot_df$Class = family_df$Class[match(olaps_plot_df$name, family_df$Family)]
 
-#S7G tisTreg TE Family enrichment volcano plot
+#S6G tisTreg TE Family enrichment volcano plot
 pdf(paste0(storeFigPath, 'tisTreg_sig_te_family_enrichment_fisher_volcano_plot.pdf'), width = 8, height = 6)
 ggplot() + geom_point(data = olaps_plot_df, aes(x = odds_ratio, y = logfdr, colour = log10(both), shape = Class), size = 4) + 
   viridis::scale_color_viridis() +  theme_minimal() + 
@@ -5819,8 +5814,6 @@ da_te_list = lapply(nebula_list, '[[', 'feature')
 tisTreg_da_te = da_te_list$cluster_annotation_finetisTregST2
 gg = jj_plot_upsetr(list(nebula_fdr005_logFC0 = tisTreg_da_te, tisTreg_signature = olaps_sig_df$name))
 
-
-#S8C
 jj_plot_upsetr(lapply(convert_nebula_df_to_list(res_list, fdr_thres = 0.05, logFC_thres = 0.5),'[[', 'feature'))
 
 
@@ -5977,7 +5970,7 @@ for(k in marker_te_groups){
     theme(axis.text.x = element_text(angle = 90, colour = "black", hjust = 1, vjust = 0.5),
           axis.text.y = element_text(colour = "black"),
           axis.ticks = element_line(colour = "black"))
-  #S8D S8E S8F
+  #S7B S7C S7D
   pdf(paste0(storeFigPath, sprintf('mouse_tnkilc_te_celltype_heatmap_%s_tes.pdf', k)), width = 1+0.22*length(tes_plot), height=6)
   print(ht)
   dev.off()
@@ -6070,7 +6063,7 @@ upset_list = list(tisTreg_sig = olaps_sig_df$name,
                   ILC2 =  shared2,
                   Th17_Areg = shared)
 
-#S7J
+#7A
 pdf(paste0(storeFigPath, 'tisTreg_signature_TE_nebula_TE_overlap.pdf'), width = 10, height = 8)
 jj_plot_upsetr(upset_list)
 ggplot() + geom_point(data = olaps_sig_df, aes(x = odds_ratio, y = logfdr, colour = ilc2_overlap, shape = th17_areg_overlap), size = 3) + 
@@ -6084,6 +6077,7 @@ write_csv(olaps_sig_df, '/omics/groups/OE0436/data2/simonma/projects/imm_cell_at
 ### plot selected TEs on umap
 tes_quantify = c('RSINE1','RMER19C','RLTR48A', 'ERV3-16A3_LTR', 'MERV1_LTR', 'MLT2B2', 'MIR3')
 gg = jj_plot_features(te_dr_df, features = tes_quantify, cap_top = 'auto', return_gg_object = T)
+#7C S7F
 pdf(paste0(storeFigPath, 'umap_mouse_tnkilc_selected_tes.pdf'),  width = 8, height = 6)
 gg
 dev.off()
@@ -6209,7 +6203,7 @@ dev.off()
 
 
 
-# fig 7a treg te pseudotime trajectory ------------------------------------
+# fig 7i treg te pseudotime trajectory ------------------------------------
 
 library(ArchR)
 library(tidyverse)
@@ -7057,6 +7051,7 @@ sig_list = jj_load_excel('/omics/groups/OE0436/data2/simonma/projects/imm_cell_a
 
 peripheral_sigs = lapply(sig_list, '[[', 'feature')
 
+#1G
 pdf(paste0(storeFigPath, 'immune_atlas_nebula_upset_ref_b_spleen_0.5.pdf'),  width = 10, height = 8)
 jj_plot_upsetr(peripheral_sigs)
 dev.off()
@@ -7279,7 +7274,7 @@ for(j in names(go_list)){
   }
 }
 
-#gene ratio 0.05, qvalue 0.05, nebula fdr 0.001, logFC > 1.5
+#2E gene ratio 0.05, qvalue 0.05, nebula fdr 0.001, logFC > 1.5
 pdf(paste0(storeFigPath, 'nebula_tissue_signatures_go_enrichment_dotplots.pdf'),width = 8, height = 8)
 dp_list
 dev.off()
@@ -7721,7 +7716,7 @@ olap_df_long = pivot_longer(olap_df, cols = -cluster_annotation_fine, names_to =
 
 ggplot(olap_df_long, aes(x = cluster_annotation_fine,  y = pct_overlap)) + geom_boxplot()
 
-#Mouse atlas tisTreg signature percentage overlap boxplot
+# S2G Mouse atlas tisTreg signature percentage overlap boxplot
 pdf(paste0(storeFigPath, 'mouse_imm_cell_atlas_tisTreg_signature_overlap_boxplot.pdf'),  width = 6, height = 5)
 jj_plot_numeric_by_group(dr_df[!dr_df$cluster_annotation_fine == 'undefined', ], 'pct_overlap', group_column = 'cluster_annotation_fine', 
                          order = T, flip_coordinates = T, type = 'boxplot',
@@ -7887,7 +7882,8 @@ dev.off()
 ##############################################################################
 # BATF Chip TE comparison
 ##############################################################################
-
+#6B
+                    
 #test tisTreg-associated TEs for enrichment of transcription factor chip seq peaks
 
 tisTreg_ilc2_th17_areg_tes = readLines('/omics/groups/OE0436/data2/simonma/projects/imm_cell_atlas/analysis/2023-09-06-te_pseudotime_heatmap/tisTreg_th17_areg_ilc2_te_overlap.txt')
@@ -7958,7 +7954,7 @@ for(i in names(olaps_df_list)){
   olaps_plot_df = olaps_df_list[[i]]
   #olaps_plot_df = olaps_df[olaps_df$fdr < 0.05, ]
   olaps_plot_df$logfdr = -log10(olaps_plot_df$fdr)
-  
+
   print(ggplot() + geom_point(data = olaps_plot_df, aes(x = odds_ratio, y = logfdr, colour = log10(both)), size = 4) + 
           viridis::scale_color_viridis() +  theme_minimal() + 
           #scale_colour_manual(values = cols_use_family) +
@@ -8180,7 +8176,6 @@ levels_use = gsea_res_comb %>%
   pull(motif)
 gsea_res_comb$motif = factor(gsea_res_comb$motif, levels = levels_use)
 
-#pdf(paste0(storeFigPath, ''), width =5, height=8)
 ggplot(gsea_res_comb, aes(x = name, y = motif, fill = enrichment)) +
   geom_tile(color = "black") +
   scale_fill_gradient(low = "white", high = "red") +
@@ -8188,5 +8183,4 @@ ggplot(gsea_res_comb, aes(x = name, y = motif, fill = enrichment)) +
   scale_fill_gradientn(colours = paletteContinuous(set = 'comet', n=100)) + 
   labs(x = 'Associated peaks (Nebula)', y = '', fill = 'Enrichment') + 
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-#dev.off()
 
